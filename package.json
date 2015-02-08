@@ -1,0 +1,15 @@
+{
+  "name": "TheBAT",
+  "version": "0.0.0",
+  "main": "Gruntfile.js",
+  "author": "James Morgan",
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-sass": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-wrap": "*"
+  }
+}

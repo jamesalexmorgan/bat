@@ -1,0 +1,12 @@
+{
+  "name": "TheBAT",
+  "version": "0.0.1",
+  "dependencies": {
+    "jQuery": "*",
+    "underscore": "*",
+    "angular": "*",
+    "bootstrap": "*",
+    "moment": "*"
+  },
+  "private": true
+}

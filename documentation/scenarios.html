@@ -1,0 +1,368 @@
+<style>
+	.panel-body img{width:100%;}
+</style>
+
+<h1>%asset_name%</h1>
+
+<p>Click one of the scenarios below:</p>
+
+<ul>
+	<li>Scenario 1 - <a href="#scenario-1">Load all standard page assets under a specific node into the BAT and view the attributes/metadata</a></li>
+	<li>Scenario 2 - <a href="#scenario-2">Create 100 Single Calendar Events (see batch functions first, then execute)</a></li>
+	<li>Scenario 3 - <a href="#scenario-3">Create a site structure from a CSV</a></li>
+	<li>Scenario 4 - <a href="#scenario-4">Execute a function on 100 assets: Set metadata</a></li>
+	<li>Scenario 5 - <a href="#scenario-5">Execute a function on 100 assets: Update link, type 1 to type 2</a></li>
+	<li>Scenario 6 - <a href="#scenario-6">Execute a function on 100 assets: Set attribute 'Allow Unrestricted Access' to No</a></li>
+	<li>Scenario 7 - <a href="#scenario-7">Execute a one off function on the server: e.g. Get Asset Types</a></li>
+	<li>Scenario 8 - <a href="#scenario-8">Get a CSV (id,name,shortname,1 metadata field) of some assets, ordered by: status(asc),created(desc),id(asc)</a></li>
+	<li>Scenario 9 - <a href="#scenario-9">Get a CSV of all the assets' ids in the table, separated by a semicolon</a></li>
+	<li>Scenario 10 - <a href="#scenario-10">Update names and metadata for 100 assets with a CSV</a></li>
+	<li>Scenario 11 - <a href="#scenario-11">Change the format of the dates in the table (e.g. 2014-11-27 14:34:58)</a></li>
+</ul>
+
+
+<p id="scenario-1">&nbsp;</p><hr><p>&nbsp;</p>
+<h1>Scenario 1</h1>
+<h3>Load all standard page assets under a specific node into the BAT and view the attributes/metadata</h3>
+
+<ul>
+	<li>Go to the <strong>Load Assets</strong> tab in the control panel</li>
+	<li>Enter your <strong>root node id</strong> into the <strong>Asset Ids</strong> textarea</li>
+	<li>Leave <strong>Limit types</strong> checked (so that it doesn't load all assets like content divs)</li>
+	<li>Select <strong>Standard Page</strong> from the <strong>Limited asset type codes</strong> select box (this list can be configured in the <strong>Config</strong> tab)</li>
+	<li>Leave <strong>Include roots</strong> unchecked so that it doesn't load the parent assets</li>
+	<li>Click <strong>Load assets</strong></li>
+</ul>
+
+<div class="panel panel-default"><div class="panel-body"><img src="./?a=7346" alt=""></div></div>
+
+<p>This will load all the <strong>attributes</strong> and <strong>metadata</strong> of the assets into the BAT</p>
+
+<ul>
+	<li>In the <strong>Display fields</strong> select box, select a few attributes and metadata fields</li>
+</ul>
+
+<div class="panel panel-default"><div class="panel-body"><img src="./?a=7347" alt=""></div></div>
+
+
+
+
+
+
+<p id="scenario-2">&nbsp;</p><hr><p>&nbsp;</p>
+<h1>Scenario 2</h1>
+<h3>Create 100 Single Calendar Events (see batch functions first, then execute)</h3>
+
+<ul>
+	<li>Go to the <strong>Create</strong> -&gt; <strong>Bulk Create</strong> tab in the control panel</li>
+	<li>Set the <strong>Asset Type</strong> to <strong>Single Calendar Event</strong></li>
+	<li>Make sure <strong>Extra attribute on create</strong> is checked and set <strong>start_date</strong>to any date e.g. <strong>2014-05-06</strong> <br>
+	<span>(<strong>NOTE</strong>: This is intended for required fields. Some asset types, like Calendar events require a start date when created. You may set further attributes easily once they are created.)</span></li>
+	<li>Set the <strong>Parent Asset Id</strong>. This is where they will be created.</li>
+	<li>Leave <strong>Create Type</strong> on <strong>Normal</strong></li>
+	<li>Set <strong>Number of assets to create</strong> to <strong>100</strong></li>
+	<li>Set the Asset name to <strong>Number %index% Single Calendar Event</strong></li>
+</ul>
+
+<div class="panel panel-default"><div class="panel-body"><img src="./?a=7348" alt=""></div></div>
+
+<p>Make sure <strong>Test</strong> is checked and click <strong>Create assets</strong></p>
+
+<p>This will show you the batch functions without executing them</p>
+
+<div class="panel panel-default"><div class="panel-body"><img src="./?a=7349" alt=""></div></div>
+
+<p>If you're happy, go back to the <strong>Create</strong> -&gt; <strong>Bulk Create</strong> tab, uncheck Test and press <strong>Create assets</strong> to start creating</p>
+
+<div class="panel panel-default"><div class="panel-body"><img src="./?a=7350" alt=""></div></div>
+
+<p>If <strong>Load after created</strong> is checked, they will be loaded into the table as soon as they are finished. Then you can manipulate them further.</p>
+
+
+
+
+
+
+
+
+
+<p id="scenario-3">&nbsp;</p><hr><p>&nbsp;</p>
+<h1>Scenario 3</h1>
+<h3>Create a site structure from a CSV</h3>
+
+<ul>
+	<li>Go to the <strong>Create</strong> -&gt; <strong>Structure Create</strong> tab in the control panel</li>
+	<li>Set the <strong>Parent Asset Id</strong>. This is where the site structure will be created.</li>
+	<li>
+		Paste your CSV into the <strong>Structure CSV</strong> textarea (there's a placeholder CSV in there that is valid) <br>
+		The format is <strong>,My Page Name(asset_type_code),</strong><br>
+		<span>(<strong>NOTE</strong>: preceding and succeeding whitespace is removed, empty lines are ignored)</span>
+	</li>
+	<li>Use the <strong>Available Asset Types</strong> dropdown as a reference for the correct asset type codes to use in the brackets</li>
+</ul>
+
+<p>Click <strong>Check CSV</strong></p>
+
+<div class="panel panel-default"><div class="panel-body"><img src="./?a=7351" alt=""></div></div>
+
+<p>If there are any errors with the CSV, they will be in the <strong>Reporting</strong> tab</p>
+
+<div class="panel panel-default"><div class="panel-body"><img src="./?a=7352" alt=""></div></div>
+
+<p>If the CSV is fine, details will be shown of how many of each asset type will be created</p>
+
+<div class="panel panel-default"><div class="panel-body"><img src="./?a=7353" alt=""></div></div>
+
+<p>When you are happy with your CSV, click <strong>Create Structure</strong></p>
+
+<p>Your site structure will be created and the new assets will be loaded into the table.</p>
+
+<div class="panel panel-default"><div class="panel-body"><img src="./?a=7356" alt=""></div></div>
+
+
+
+
+
+<p id="scenario-4">&nbsp;</p><hr><p>&nbsp;</p>
+<h1>Scenario 4</h1>
+<h3>Execute a function on 100 assets: Set metadata</h3>
+
+<ul>
+	<li>Load some assets into the table (see <a href="#scenario-1">scenario 1</a>)</li>
+	<li>Go to the <strong>Execute</strong> -&gt; <strong>Function</strong> tab in the control panel</li>
+	<li>Set the <strong>function</strong> to <strong>Set Metadata</strong>.</li>
+	<li>Set the <strong>field_id</strong> to your metadata field e.g. <strong>Note (125)</strong></li>
+	<li>Set the <strong>field_val</strong> to <strong>Hello, I'm asset %index% in the table, my name is %name% and I am a %type&#95;code%</strong>
+		<ul>
+			<li>There's a dropdown for the <strong>available keyword replacements</strong> to use in the value field <br/>Check the <strong>Test</strong> checkbox and click <strong>Execute</strong> to see what kind of results you'll get from the different keywords</li>
+		</ul>
+	</li>
+</ul>
+
+<div class="panel panel-default"><div class="panel-body"><img src="./?a=7354" alt=""></div></div>
+
+<ul>
+	<li>Uncheck <strong>Test</strong> and click <strong>Execute</strong> to set the metadata</li>
+</ul>
+
+<div class="panel panel-default"><div class="panel-body"><img src="./?a=7355" alt=""></div></div>
+
+
+
+
+
+<p id="scenario-5">&nbsp;</p><hr><p>&nbsp;</p>
+<h1>Scenario 5</h1>
+<h3>Execute a function on 100 assets: Update link, type 1 to type 2</h3>
+
+<ul>
+	<li>Load some assets into the table (see <a href="#scenario-1">scenario 1</a>)</li>
+	<li>Go to the <strong>Execute</strong> -&gt; <strong>Function</strong> tab in the control panel</li>
+	<li>Set the <strong>function</strong> to <strong>Update Link</strong>.</li>
+	<li>Set the <strong>parent_id</strong></li>
+	<li>Click the <strong>set</strong> checkbox and set the <strong>existing_link_type</strong> to <strong>SQ_LINK_TYPE_1</strong></li>
+	<li>Click the <strong>set</strong> checkbox and set the <strong>link_type</strong> to <strong>SQ_LINK_TYPE_2</strong></li>
+</ul>
+
+<div class="panel panel-default"><div class="panel-body"><img src="./?a=7357" alt=""></div></div>
+
+<ul>
+	<li>Click <strong>Execute</strong> to update the links</li>
+</ul>
+
+<div class="panel panel-default"><div class="panel-body"><img src="./?a=7358" alt=""></div></div>
+
+
+
+
+
+<p id="scenario-6">&nbsp;</p><hr><p>&nbsp;</p>
+<h1>Scenario 6</h1>
+<h3>Execute a function on 100 assets: Set attribute 'Allow Unrestricted Access' to No</h3>
+
+<ul>
+	<li>Load some assets into the table (see <a href="#scenario-1">scenario 1</a>)</li>
+	<li>Go to the <strong>Execute</strong> -&gt; <strong>Function</strong> tab in the control panel</li>
+	<li>Set the <strong>function</strong> to <strong>Set Attribute</strong>.</li>
+	<li>
+		Set the <strong>attr_name</strong> to <strong>allow_unrestricted</strong>
+		<ul>
+			<li><strong>NOTE:</strong> this must be the <strong>id</strong> of the field (e.g. short_name,title,allow_unrestricted)</li>
+			<li>You can find available attributes' ids from the <strong>Available keywords</strong> dropdown just below or the <strong>Display fields</strong> select in the top left</li>
+		</ul>
+	</li>
+	<li>Set the <strong>attr_val</strong> to <strong>0</strong></li>
+</ul>
+
+<div class="panel panel-default"><div class="panel-body"><img src="./?a=7359" alt=""></div></div>
+
+<ul>
+	<li>Click <strong>Execute</strong> to set the attributes</li>
+</ul>
+
+<div class="panel panel-default"><div class="panel-body"><img src="./?a=7360" alt=""></div></div>
+
+
+
+
+
+
+<p id="scenario-7">&nbsp;</p><hr><p>&nbsp;</p>
+<h1>Scenario 7</h1>
+<h3>Execute a one off function on the server: e.g. Get Asset Types</h3>
+
+<ul>
+	<li>Go to the <strong>Execute</strong> -&gt; <strong>Function</strong> tab in the control panel</li>
+	<li>
+		Set the <strong>function</strong> to <strong>Get Asset Types</strong>
+		<ul>
+			<li>No assets are used in this function so this can be executed without loading any assets</li>
+		</ul>
+	</li>
+</ul>
+
+<div class="panel panel-default"><div class="panel-body"><img src="./?a=7361" alt=""></div></div>
+
+<ul>
+	<li>Click <strong>Execute</strong> to get the asset types</li>
+</ul>
+
+<div class="panel panel-default"><div class="panel-body"><img src="./?a=7362" alt=""></div></div>
+
+
+
+
+
+
+<p id="scenario-8">&nbsp;</p><hr><p>&nbsp;</p>
+<h1>Scenario 8</h1>
+<h3>Get a CSV (id,name,shortname,1 metadata field) of some assets, ordered by: status(asc),created(desc),id(asc)</h3>
+
+<ul>
+	<li>Load some assets into the table (see <a href="#scenario-1">scenario 1</a>)</li>
+
+	<li>In the <strong>Display fields</strong> select box in the top left, select <strong>Name (name)</strong>, <strong>Short name (short_name)</strong> and your metadata field (e.g. <strong>Note (#125)</strong>)
+		<ul>
+			<li><strong>Id</strong> is displayed by default</li>
+			<li><strong>Select as many fields as you want</strong>, by all means you can build a <strong>huge CSV</strong> if you need to <br>
+			The further columns will disppear off the page but your CSV will have <strong>all</strong> the values</li>
+		</ul>
+	</li>
+
+	<li>
+		In the <strong>Sorting</strong> dropdowns on the right:
+		<ul>
+		 	<li>In the <strong>first</strong> dropdown select <strong>Status</strong>, uncheck the <strong>descending checkbox</strong></li>
+		 	<li>In the <strong>second</strong> dropdown select <strong>Created</strong>, check the <strong>descending checkbox</strong></li>
+		 	<li>In the <strong>first</strong> dropdown select <strong>Id</strong>, uncheck the <strong>descending checkbox</strong></li>
+		 </ul>
+	</li>
+
+	<li>
+		Go to the <strong>Reporting</strong> tab and click <strong>Get CSV</strong>
+		<ul>
+			<li>This will produce a CSV of whatever is displaying in the table above, including formatted dates so you may want to disable that</li>
+		</ul>
+	</li>
+</ul>
+
+<div class="panel panel-default"><div class="panel-body"><img src="./?a=7363" alt=""></div></div>
+
+
+
+
+
+
+
+
+<p id="scenario-9">&nbsp;</p><hr><p>&nbsp;</p>
+<h1>Scenario 9</h1>
+<h3>Get a CSV of all the assets' ids in the table, separated by a semicolon</h3>
+
+<ul>
+	<li>Load some assets into the table (see <a href="#scenario-1">scenario 1</a>)</li>
+	<li>Go to the <strong>Reporting</strong> tab and click <strong>Get CSV</strong></li>
+	<li>In the <strong>divider</strong> text field, type in the character <strong>;</strong>
+		<ul>
+			<li>You can also type in <strong>tab</strong>, which will put in a tab character (good for pasting into excel!)</li>
+		</ul>
+	</li>
+	<li>Select <strong>Horizontal</strong> from the radio buttons</li>
+	<li>The <strong>ids</strong> are available along the top of the CSV</li>
+</ul>
+
+<div class="panel panel-default"><div class="panel-body"><img src="./?a=7364" alt=""></div></div>
+
+
+
+
+
+
+
+<p id="scenario-10">&nbsp;</p><hr><p>&nbsp;</p>
+<h1>Scenario 10</h1>
+<h3>Update names and metadata for 100 assets with a CSV</h3>
+
+<ul>
+	<li>Prepare a CSV of some assets with the fields that you want to change (see <a href="#scenario-8">scenario 8</a>)</li>
+	<li>Go to the <strong>Execute</strong> -&gt; <strong>Bulk CSV Change</strong> tab in the control panel</li>
+	<li>Paste your CSV into the <strong>CSV</strong> textarea
+		<ul>
+			<li><strong>Make sure</strong> your columns are using the field ids e.g. <strong>id,name,short_name,125</strong></li>
+			<li><strong>Make sure</strong> you have an <strong>Id</strong> column on the <strong>far left</strong></li>
+		</ul>
+	</li>
+	<li>Click <strong>Check for changes, this will:</strong>
+		<ul>
+			<li>Check the CSV for too many/missing values,</li>
+			<li>Load all the assets (using the ids) into the table</li>
+			<li>Compare values of the CSV with those currently in Matrix</li>
+			<li>Load the changes into the table on the right</li>
+		</ul>
+	</li>
+	<li>As you make changes, feel free to click <strong>Check for changes</strong> over and over to update the changes table on the right
+		<ul>
+			<li><strong>Reload</strong> will query the assets from Matrix again<br>
+				Uncheck this if you want to compare the CSV with the assets already loaded (<strong>much faster!</strong>)</li>
+		</ul>
+	</li>	
+</ul>
+
+<div class="panel panel-default"><div class="panel-body"><img src="./?a=7365" alt=""></div></div>
+
+<ul>
+	<li>If you are happy with the changes to be made, click <strong>Make changes</strong></li>
+</ul>
+
+<div class="panel panel-default"><div class="panel-body"><img src="./?a=7366" alt=""></div></div>
+
+
+
+
+
+
+<p id="scenario-11">&nbsp;</p><hr><p>&nbsp;</p>
+<h1>Scenario 11</h1>
+<h3>Change the format of the dates in the table (e.g. 2014-11-27 14:34:58)</h3>
+
+<p>The date formatting makes use of <a href="http://momentjs.com/"><strong>moment.js</strong></a>. You can see a list of the available format characters <a href="http://momentjs.com/docs/#/displaying/format/">here</a>.</p>
+<p><strong>Improvement to be made:</strong>It will try to process <strong>every</strong> value in the table so it will interpret some values, like <strong>Standard Page 5</strong> as <strong>2001-05-01 00:00:00</strong>. This will be resolved soon!</p>
+
+<ul>
+	<li>Load some assets into the table (see <a href="#scenario-1">scenario 1</a>)</li>
+	<li>Under <strong>Dates</strong> check <strong>Format dates</strong>
+		<ul>
+			<li>The default format uses the <strong>fromNow()</strong> function (e.g. <strong>Two days ago</strong>)</li>
+		</ul>		
+	</li>
+</ul>
+
+<div class="panel panel-default"><div class="panel-body"><img src="./?a=7367" alt=""></div></div>
+
+<ul>
+	<li>Check <strong>Manual format</strong> to override this with your own format</li>
+	<li>Enter <strong>Do \o\f MMM 'YY \a\t HH:mm</strong></li>
+</ul>
+
+<div class="panel panel-default"><div class="panel-body"><img src="./?a=7368" alt=""></div></div>
+

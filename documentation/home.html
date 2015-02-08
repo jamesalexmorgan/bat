@@ -1,0 +1,133 @@
+<style>
+	.row .panel-body{height:190px;}
+	.panel-body ul{padding-left:15px;}
+	.panel-body img{width:100%;}
+</style>
+
+<p>&nbsp;</p>
+
+<div class="jumbotron">
+        <h1>Welcome to the BAT CAVE!</h1>
+        <p>This is the home of the <strong>Bulk Asset Tool</strong>. If you have a job to do involving <strong>100</strong>...<strong>1000</strong>...<strong>10,000 assets</strong> on your site, then this is the place to be!</p>
+        <p><a href="%globals_asset_url:73%" class="btn btn-primary btn-lg" role="button">See scenarios »</a></p>
+</div>
+
+<h3>With the BAT we can...</h3>
+
+<div class="row">
+        <div class="col-sm-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Gather</h3>
+            </div>
+            <div class="panel-body">
+              <ul>
+              	<li>Load up <strong>any number of assets</strong> into the table and view <strong>all</strong> the available attributes and metadata</li>
+              	<li><strong>Track down</strong> and <strong>organise</strong> assets using the powerful <strong>searching</strong> and <strong>multiple sorting</strong> tools</li>
+              	<li><strong>Build custom CSVs</strong> with specific fields</li>
+              </ul>
+            </div>
+          </div>
+        </div><!-- /.col-sm-4 -->
+        <div class="col-sm-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Create</h3>
+            </div>
+            <div class="panel-body">
+              <ul>
+              	<li><strong>Bulk create assets</strong> of any type using a number or a CSV of names</li>
+              	<li>Create a whole <strong>site structure</strong> from an <strong>IA CSV</strong> specifying different <strong>asset types</strong>!</li>
+              </ul>            
+          	</div>
+          </div>
+        </div><!-- /.col-sm-4 -->
+        <div class="col-sm-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Modify</h3>
+            </div>
+            <div class="panel-body">
+              <ul>
+              	<li>Easily fire off <strong>any js api function</strong> on any number of assets</li>
+              	<li>Execute a <strong>bulk CSV change</strong>, modifying multiple attributes and metadata values from any number of assets with one click!</li>
+              </ul>  
+            </div>
+          </div>
+        </div><!-- /.col-sm-4 -->
+</div>
+
+<h2>Install it in 3 steps...</h2>
+
+<p>Make a <strong>blank design</strong>, paste the following code into the parse file:</p>
+
+<textarea class="form-control" rows="10">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    </head>
+    <body>
+        <MySource_AREA id_name="page_body" design_area="body" />
+    </body>
+</html>
+</textarea>
+
+<p>&nbsp;</p>
+
+<h2>...then...</h2>
+
+<p>&nbsp;</p>
+
+<p>Make (or find) a <strong>JS API asset</strong> and make sure the following settings are set:</p>
+
+<ul>
+	<li><strong>Root Nodes</strong> - set to your root node</li>
+	<li><strong>Asset Types to Create</strong> - leave empty</li>
+	<li><strong>Parent Types</strong> - leave empty</li>
+	<li><strong>Allow Attributes on Create</strong> - Yes</li>
+	<li><strong>Return JSON</strong> - Yes</li>
+	<li><strong>Ignore Permissions</strong> - Yes</li>
+	<li><strong>Force Simple Edit</strong> - No</li>
+	<li><strong>Use Enhanced JS API</strong> - Yes</li>
+	<li><strong>Allow Batching Requests</strong> - Yes</li>
+</ul>
+
+<p>...<strong>and also</strong>...</p>
+
+<ul>
+	<li>Set <strong>ALL</strong> the available functions (Create Asset, Clone Asset, Get General Info, Get Asset Types...) to <strong>Yes</strong></li>
+</ul>
+
+<div class="panel panel-default">
+<div class="panel-body">
+	<img src="./?a=6723" alt="">
+</div>
+</div>
+
+<p>&nbsp;</p>
+
+<h2>...then...</h2>
+
+<p>&nbsp;</p>
+
+<p>Make a <strong>standard page</strong>, and paste the following code into a raw html div in the page contents:</p>
+
+<ul>
+	<li>Set the <strong>Matrix Api Asset Id</strong> (e.g. <strong>1234</strong>)</li>
+	<li>Set the <strong>Matrix Api Key</strong> (e.g. <strong>6960446740</strong>)</li>
+	<li>Set the <strong>Site root</strong> (e.g. <strong>http://syd-prodvm-matrix06.syd.squiz.net.au</strong>)</li>
+</ul>
+
+<textarea class="form-control" rows="10" title="I know....it's a beast right?!?!">
+
+
+
+</textarea>
+
+<p>&nbsp;</p>
+
+<p>Apply the blank design to the standard page and you're...</p>
+
+<h2>Good to go!</h2>
+
+<p>&nbsp;</p>
