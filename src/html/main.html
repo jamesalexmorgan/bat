@@ -14,20 +14,6 @@
         </div>
       </div><!-- end #display-fields -->
 
-      <div id="dates" class="form-inline">
-        <h4>Dates</h4>
-        <div class="form-group">
-          <input type="checkbox" ng-model="prettyDates"> Format dates
-          <span class="showing-{{prettyDates}}" style="display:block;">
-            <input type="checkbox" ng-model="prettyDatesManual"> Manual format <br>
-            <span class="showing-{{prettyDatesManual}}" style="display:block;"><input class="form-control" type="text" ng-model="prettyDateFormat" placeholder="e.g. Do MMM 'YY"/></span>
-          </span>
-        </div>
-      </div><!-- end #dates -->
-    </div><!-- end #lhc -->
-
-
-    <div id="rhc" class="sidebar showing-{{(assets.length > 0)}}" ng-click="cpanel.showing = false">
       <div id="search" class="form-inline">
         <h4>Search <span class="showing-{{searchTxt != ''}}">({{searchedAssets.length}} items)</span></h4>
         <div class="form-group">
@@ -64,8 +50,20 @@
           <input type="checkbox" title="Descending checkbox" ng-model="sort.directions[3]" ng-change="sort.changed(3)" ng-disabled="sort.fields.length < 4"/>
           <a href="#" class="btn btn-default btn-sm" ng-click="sort.remove(3)" ng-disabled="sort.fields.length < 4">x</a> 
         </div>
-      </div><!-- end #sorting -->     
-    </div><!-- end #rhc -->
+      </div><!-- end #sorting -->
+
+      <div id="dates" class="form-inline">
+        <h4>Dates</h4>
+        <div class="form-group">
+          <input type="checkbox" ng-model="prettyDates"> Format dates
+          <span class="showing-{{prettyDates}}" style="display:block;">
+            <input type="checkbox" ng-model="prettyDatesManual"> Manual format <br>
+            <span class="showing-{{prettyDatesManual}}" style="display:block;"><input class="form-control" type="text" ng-model="prettyDateFormat" placeholder="e.g. Do MMM 'YY"/></span>
+          </span>
+        </div>
+      </div><!-- end #dates -->
+    </div><!-- end #lhc -->
+
 
 
 
@@ -78,7 +76,6 @@
 
 
     <div id="wrapper" ng-click="cpanel.showing = false">
-
         <div id="asset-selection">
           <div id="content" class="showing-{{(assets.length > 0)}}">
               <div class="top-tools">

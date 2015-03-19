@@ -32,7 +32,7 @@ module.exports = function(grunt){
           'build/global.css',
           'src/html/tag-style-close.html',
 
-          'src/main.html',
+          'src/html/main.html',
 
           'src/html/tag-script-open.html',
           'bower_components/underscore/underscore-min.js',

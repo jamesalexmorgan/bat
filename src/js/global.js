@@ -134,7 +134,7 @@ bulkAssetApp.filter('prettifyJson', function() {
   return function(input) {
     if(typeof input === 'string') {
       return input;
-    }else{
+    } else {
       return JSON.stringify(input, null, '\t');  
     } 
   };
@@ -161,7 +161,7 @@ bulkAssetApp.filter('prettifyDate', function() {
       if(date.isValid()) {
         if(manualFormat) {
           return date.format(format);
-        }else{
+        } else {
           return date.fromNow();  
         }
       }
@@ -208,16 +208,16 @@ bulkAssetApp.filter('metadataFieldNameFormat', function() {
     if(field.isMetadata) {
       if(field.meta_id) {
         return field.id + ' (#' + field.meta_id + ')';
-      }else{
+      } else {
         return field.id + ' (#??Deleted??)'; //very unlikely, assets, still have field.meta_id
       }
 
       return field.id + ' (#' + field.meta_id + ')';
-    }else{
+    } else {
       var returnVal = field.name;
       if(showId) {
         return field.name + ' (' + field.id + ')';
-      }else{
+      } else {
         return field.name;
       }
       
@@ -232,10 +232,10 @@ bulkAssetApp.filter('metadataFieldIdFormat', function() {
     if(field.isMetadata) {
       if(field.meta_id) {
         return field.meta_id;
-      }else{
+      } else {
         return '?Deleted?'; //very unlikely, assets, still have field.meta_id
       }
-    }else{
+    } else {
       return field.id;
     }
   };
@@ -2673,7 +2673,7 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
 
     if(errors !== '') {
       errorCallback(errors);
-    }else{
+    } else {
       successCallback();
     }
   };
@@ -2699,7 +2699,7 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
 
     if($scope.chunkType === 'manual') {
       divSize = Number($scope.chunkManualAmount);
-    }else{
+    } else {
       divSize = Math.floor(newArray.length / $scope.chunkFlexibleDivisionAmount);
       var min = Number($scope.chunkFlexibleMin);
       var max = Number($scope.chunkFlexibleMax);
@@ -2731,7 +2731,7 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
 
     if(batchFunctions instanceof Array) {//check for old technique where chunked functions came in so it doesn't 
       batchFunctionsChunked = batchFunctions;
-    }else{
+    } else {
       batchFunctionsChunked = $scope.batchFunctionsConvertToChunked(batchFunctions);
     }
 
@@ -2748,7 +2748,7 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
       $scope.loaderOne.showing = false;
       $scope.loaderTwo.current = 1;
       $scope.loaderTwo.total = 1;
-    }else{
+    } else {
       $scope.loaderOne.showing = true;
     }
 
@@ -2760,7 +2760,7 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
               allResults = allResults.concat(results);//add results to array
               if(position === noOfChunks - 1) {
                 callBack(allResults);//finished, do call back
-              }else{
+              } else {
                 functions[position+1](position+1);// call next function
               }
               totalExecuted += Object.keys(batchFunctionsChunked[position]).length;
@@ -2782,7 +2782,7 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
       var chunkSize = 0;
       if($scope.chunkType === 'manual') {
         chunkSize = Number($scope.chunkManualAmount);
-      }else{
+      } else {
         chunkSize = Math.floor(Object.keys(batchFunctions).length / $scope.chunkFlexibleDivisionAmount);
         var min = Number($scope.chunkFlexibleMin);
         var max = Number($scope.chunkFlexibleMax);
@@ -2905,7 +2905,7 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
                 if(keyword === field.meta_id) {
                   value = asset[field.id];
                 }
-              }else{
+              } else {
                 if(keyword === field.id) {
                   value = asset[field.id];
                 }
@@ -2985,7 +2985,7 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
     if($scope.loading) {
       //it's already loading so go to the next
       $scope.loaderOne.current++;//moving to next large function e.g. now setting metadata
-    }else{
+    } else {
       //starting a new load
       $scope.loading = true;
       $scope.loaderOne.current = 0;
@@ -2996,7 +2996,7 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
     if(text) {
       $scope.loadingText = text;
       $scope.loaderOne.text = text;
-    }else{
+    } else {
       $scope.loadingText = 'Loading...';
       $scope.loaderOne.text = 'Loading...';
     }
@@ -3036,7 +3036,7 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
         assetsSelectedIds.push(asset.id);
       });
       $scope.getData({"assetIds":assetsSelectedIds});
-    }else{
+    } else {
       $scope.message('error-true','No assets selected',"Please select some assets in the table to refresh.");
     }
   };
@@ -3055,7 +3055,7 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
     var assets = null;
     if($scope.searchTxt !== '') {
       assets = $scope.searchedAssets;
-    }else{
+    } else {
       assets = $scope.assets;
     }
     _.each(assets,function(asset) {
@@ -3172,7 +3172,7 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
       if(this.fields.length === 1 && this.fields[0] === field) {//if already sorting by only this field then reverse
         this.directions[0] = !this.directions[0];
         this.changed(0);
-      }else{
+      } else {
         this.fields = [field];
         this.directions = [false];
         this.array = [];
@@ -3197,7 +3197,7 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
 
 /**********************  4.4.4 Pretty Dates **********************/
 
-  $scope.prettyDates = true;
+  $scope.prettyDates = false;
   $scope.prettyDatesManual = false;
   $scope.prettyDateFormat = "Do MMM 'YY";
 
@@ -3267,7 +3267,7 @@ PURPOSE
       //there is the option to pass in an array of ids, useful for other functions that need to load assets
       if(params && params.assetIds) {
         $scope.loadAssetIds = params.assetIds;
-      }else{
+      } else {
         //get an array of all the ids
         $scope.loadAssetIds = $scope.loadAssetIdsString.split(',');
       }
@@ -3327,12 +3327,12 @@ PURPOSE
               $scope.loadAssetDataSet($scope.loadAssetStepOneResultAssets,'');
               $scope.getDataStepTwo();
             });
-          }else{
+          } else {
             //finished getting general data
             if($scope.loadAssetStepOneResultAssets.length) {//sometimes has no children
               $scope.loadAssetDataSet($scope.loadAssetStepOneResultAssets,'');
               $scope.getDataStepTwo();
-            }else{
+            } else {
               $scope.loading = false;
               $scope.message('error-true','No assets to load','Sorry, none of these assets had any children of the type codes specified.');
             }
@@ -3341,7 +3341,7 @@ PURPOSE
 
         });//end $scope.executeBatchFunctions
 
-      }else{ //else cascade
+      } else { //else cascade
 
       /*********************** NO CASCADE **************************/
 
@@ -3356,7 +3356,7 @@ PURPOSE
           $scope.loadAssetDataSet($scope.loadAssetStepOneResultAssets,'');
           if(params) {
             $scope.getDataStepTwo(params);
-          }else{
+          } else {
             $scope.getDataStepTwo();
           }
         });
@@ -3383,7 +3383,7 @@ PURPOSE
               $scope.getDataStepThree(params);
             });          
           });
-        }else{
+        } else {
           $scope.getDataStepThree(params);
         }
     };
@@ -3449,12 +3449,12 @@ PURPOSE
 
           if(asset) {
             $scope.loadAssetFields(asset,assetData,isMetadata); //transfer all data to asset in table
-          }else{
+          } else {
             var newAsset = {};
             $scope.loadAssetFields(newAsset,assetData,isMetadata); //transfer all data to new asset
             $scope.assets.push(newAsset); //if new then push new asset            
           }
-        }else{
+        } else {
           //report error
         }
       });
@@ -3470,7 +3470,7 @@ PURPOSE
             //if it is a number save into assets as a number (so you can order properly by it)
             if(String(assetData[attId]).match(/^-?\d+\.?\d*$/) !== null) {
               asset[attId] = Number(assetData[attId]);
-            }else{
+            } else {
               asset[attId] = assetData[attId];
             }
           }
@@ -3480,7 +3480,7 @@ PURPOSE
             var newField = {"id":attId,"name":$scope.prettifyName(attId)};
             //default display fields
             if(userVarFieldsDisplayDefaults.indexOf(attId) !== -1) {$scope.fieldsDisplay.push(newField);}
-            if(isMetadata) {newField.isMetadata = true;}else{newField.isMetadata = false;}//will need that for the displaying the field names later
+            if(isMetadata) {newField.isMetadata = true;} else {newField.isMetadata = false;}//will need that for the displaying the field names later
             $scope.fields.push(newField);
           }
 
@@ -3604,7 +3604,7 @@ PURPOSE
     //if radio is on selected then get just those
     if($scope.executeSelectedRadio === 'selected') {
       assetsActioning = $filter('orderBy')($scope.assetsSelected,$scope.sort.array);
-    }else{
+    } else {
       assetsActioning = $filter('orderBy')($scope.assets,$scope.sort.array);
     }
 
@@ -3658,13 +3658,13 @@ PURPOSE
     var batchFunctionsActionsExecute = [];
     if($scope.selectedAction.assetVarName !== null) {
       batchFunctionsActionsExecute = $scope.prepareActionBatchFunctions(assetsActioningIds);
-    }else{
+    } else {
       batchFunctionsActionsExecute = $scope.prepareActionBatchFunctionSingle();
     }
 
     if($scope.actionsBatchFunctionsTest) {
       $scope.message('','Your batch of functions',batchFunctionsActionsExecute);  
-    }else{
+    } else {
 
       $scope.loaderOne.total = 3;
       $scope.loadingStart('Executing ' + $scope.selectedAction.name + '...');
@@ -3732,7 +3732,7 @@ $scope.prepareActionBatchFunctions = function(assetIds) {
     if(counter < (assetIds.length-1)) {
       if($scope.selectedAction.blocking) {
         newFunction.blocking = 1;
-      }else{
+      } else {
         newFunction.blocking = 0;
       }
     }
@@ -3773,7 +3773,7 @@ $scope.prepareActionBatchFunctions = function(assetIds) {
 
                 if(!variable.csv) {//if not csv
                   stringVal = variable.val;
-                }else{
+                } else {
                   //CSV CSV CSV CSV CSV CSV CSV CSV 
                   //TODO - maybe improve this so it's not splitting every time
                   csvValues = variable.val.split(',');
@@ -3828,6 +3828,8 @@ $scope.csvChangeChkBatchFunctionsTest = true;
 $scope.csvChangeAssetsLoaded = false;
 $scope.csvChangeReload = false;
 
+$scope.csvChangeChkEmptyReplace = true;
+
 $scope.csvChangeAssets = [];
 $scope.csvChangeChanges = [];
 $scope.csvChangeIds = [];
@@ -3874,7 +3876,7 @@ $scope.csvChangeBtnCheckForChanges = function() {
 
           $scope.csvChangeBtnCheckForChangesStep2();
         }});
-      }else{
+      } else {
         $scope.csvChangeBtnCheckForChangesStep2();
       }
     }
@@ -3894,38 +3896,46 @@ $scope.csvChangeBtnCheckForChangesStep2 = function() {
       for(var key in csvAsset) {//go through each att
         
         if(csvAsset.hasOwnProperty(key)) {
-          var newChange = {
-            "id":csvAsset.id,
-            "field":key,
-            //"to":csvAsset[key],
-            "to":$scope.keywordsReplace(csvAsset[key],csvAsset.id,counter),
-            "from":''
-          };
 
-          if(String(newChange.field).match(/^-?\d+\.?\d*$/) !== null) {//check if it's a number
-            newChange.isMetadata = true;
-            //get display field
-            
-            var field = _.where($scope.fields,{meta_id:key})[0];
-            
-            if(field){
-              newChange.from = originalAsset[field.id];            
+          //replace value with empty val
+          if(csvAsset[key].trim() !== '' || (csvAsset[key].trim() === '' && $scope.csvChangeChkEmptyReplace)){
+
+            var newChange = {
+              "id":csvAsset.id,
+              "field":key,
+              //"to":csvAsset[key],
+              "to":$scope.keywordsReplace(csvAsset[key],csvAsset.id,counter),
+              "from":''
+            };
+
+            if(String(newChange.field).match(/^-?\d+\.?\d*$/) !== null) {//check if it's a number
+              newChange.isMetadata = true;
+              //get display field
+              
+              var field = _.where($scope.fields,{meta_id:key})[0];
+              
+              if(field){
+                newChange.from = originalAsset[field.id];            
+              } else {
+                //TODO change to proper reporting
+                newChange.from = 'ERROR: FIELD NOT FOUND!!';
+                alert('Could not find field "' + key + '".\nCheck these assets have the field');
+              }
+
             } else {
-              //TODO change to proper reporting
-              newChange.from = 'ERROR: FIELD NOT FOUND!!';
-              alert('Could not find field "' + key + '".\nCheck these assets have the field');
+              newChange.isMetadata = false;
+              
+              if(originalAsset.hasOwnProperty(key)) newChange.from = originalAsset[key];
             }
 
-          }else{
-            newChange.isMetadata = false;
-            
-            if(originalAsset.hasOwnProperty(key)) newChange.from = originalAsset[key];
+            if(String(newChange.from) !== String(newChange.to)) {
+              $scope.csvChangeChanges.push(newChange);
+              $scope.csvChangeIds.push(newChange.id);
+            }
+
+
           }
 
-          if(String(newChange.from) !== String(newChange.to)) {
-            $scope.csvChangeChanges.push(newChange);
-            $scope.csvChangeIds.push(newChange.id);
-          }
         }
       }
 
@@ -3967,7 +3977,7 @@ $scope.csvChangeBtnExecuteChanges = function() {
 
   if($scope.csvChangeChkBatchFunctionsTest) {
     $scope.message('','Your batch of functions',csvChangeBatchFunctions);  
-  }else{
+  } else {
     $scope.loaderOne.total = 3;
     $scope.loadingStart('Making changes...');
     $scope.executeBatchFunctions(csvChangeBatchFunctions,function(results) {
@@ -3998,7 +4008,7 @@ $scope.csvChangeMakeBatchFunctions = function() {
       newFunction["function"] = 'setMetadata';
       newFunction.args.field_id = change.field;
       newFunction.args.field_val = change.to;
-    }else{
+    } else {
       newFunction["function"] = 'setAttribute';
       newFunction.args.attr_name = change.field;
       newFunction.args.attr_val = change.to;
@@ -4046,7 +4056,7 @@ $scope.createAssets = function() {
 
   if($scope.createBatchFunctionsTest) {
     $scope.message('','Your batch of functions',batchFunctionsCreateAssets);  
-  }else{
+  } else {
     $scope.loaderOne.total = 3;
     $scope.loadingStart('Creating ' + $scope.createTypeCodeSelected.name + "s...");
     $scope.executeBatchFunctions(batchFunctionsCreateAssets,function(results) {
@@ -4068,7 +4078,7 @@ $scope.createAssets = function() {
 
         if($scope.createAssetsLoadAfter) { 
           $scope.getData({"assetIds":resultIds});
-        }else{
+        } else {
           $scope.loading = false;
         }
 
@@ -4122,7 +4132,7 @@ $scope.makeCreateAssetsBatchFunctions = function() {
           if($scope.createExtraAttField && $scope.createExtraAttValue) {
             newFunction.args.extra_attributes = 1;
             newFunction.args[$scope.createExtraAttField] = $scope.createExtraAttValue;
-          }else{
+          } else {
             $scope.message('error-true','Required',"Please set the extra attribute");
           }
         }
@@ -4132,7 +4142,7 @@ $scope.makeCreateAssetsBatchFunctions = function() {
 
 
 
-    }else{
+    } else {
       $scope.message('error-true','No assets created',"Sorry the CSV didn't have any valid names. \n\nPlease make sure you separate them with commas\n\nE.g. 'Development types,Related links,Development categories,Exempt development,Complying development'");
     }// end if names.length
 
@@ -4211,7 +4221,7 @@ $scope.convertStructureCsv = function(csv,successCallback,errorCallback) {
     });
 
     successCallback();
-  }else{
+  } else {
     errorCallback($scope.structureCreateErrorText);
   }
 };
@@ -4240,26 +4250,33 @@ $scope.convertStructureCsvLoadRow = function(rowString,rowIndex) {
       type = pageStr.substr(y+1,z-y-1);
       currentName = pageStr.substr(0,y);
 
-      $duplicateName = _.where($scope.structureCreateArray[$index],{name:currentName});
-      //or if parent has different name and this is a duplicate
-      if($duplicateName.length === 0 || //if there are no duplicates
-        ($duplicateName.length > 0 && ($duplicateName.parentName !== currentParentName))) {//if the parents are different and there are duplicates, then its ok
-        var newAsset = {
-          name:currentName,
-          type:type
-        };
+      if(_.where($scope.loadAssetsTypeCodes,{id:type}).length == 0) {//CHECK valid asset type
+        $scope.structureCreateErrorText += 'Row ' + String(rowIndex+1) + ', item ' + String($index+1) + ' - "' + type +  '" is an invalid asset type\n';
+      } else {
 
-        if(currentParentName !== null) {// if there is a parent name, replace it with its position in the previous level's array, so it can be found in the results later
-          var parentAsset = _.where($scope.structureCreateArray[$index-1],{name:currentParentName})[0];
-          var parentPosition = $scope.structureCreateArray[$index-1].indexOf(parentAsset);
-          newAsset.parent = parentPosition;
-          newAsset.parentName = currentParentName;
-        }else{
-          newAsset.parent = null;
-          newAsset.parentName = currentParentName;
+        $duplicateName = _.where($scope.structureCreateArray[$index],{name:currentName});
+        //or if parent has different name and this is a duplicate
+        if($duplicateName.length == 0 || //if there are no duplicates
+          ($duplicateName.length > 0 && ($duplicateName[$duplicateName.length -1].parentName != currentParentName))) {//if the parents are different and there are duplicates, then its ok
+          var newAsset = {
+            name:currentName,
+            type:type
+          }
+
+          if(currentParentName != null) {// if there is a parent name, replace it with its position in the previous level's array, so it can be found in the results later
+            var parentAsset = _.where($scope.structureCreateArray[$index-1],{name:currentParentName})[0];
+            var parentPosition = $scope.structureCreateArray[$index-1].indexOf(parentAsset);
+            newAsset.parent = parentPosition;
+            newAsset.parentName = currentParentName;
+          } else {
+            newAsset.parent = null;
+            newAsset.parentName = currentParentName;
+          }
+
+          $scope.structureCreateArray[$index].push(newAsset);  
         }
 
-        $scope.structureCreateArray[$index].push(newAsset);  
+        currentParentName = currentName;//set the parent name to this name
       }//end check format
 
       currentParentName = currentName;//set the parent name to this name
@@ -4319,7 +4336,7 @@ $scope.structureCreateBtnCreateStepOne = function(finalCallback) {
       var newBatch = [];
       if(results) {//only first level will have no results
         newBatch = $scope.structureCreateMakeBatchFunctions(assetsRow,results); //pass to the next function
-      }else{
+      } else {
         newBatch = $scope.structureCreateMakeBatchFunctions(assetsRow);
       }
 
@@ -4330,7 +4347,7 @@ $scope.structureCreateBtnCreateStepOne = function(finalCallback) {
 
         if($scope.functionsArray[index+1]) {//go to next function
           $scope.functionsArray[index+1](index+1,funcResults);
-        }else{//finished
+        } else {//finished
           $scope.structureCreateBtnCreateStepTwo();
         }
       });
@@ -4401,7 +4418,7 @@ $scope.structureCreateMakeBatchFunctions = function(assetsRow,results) {
   _.each(assetsArrayOfArrays,function(array,$index) {
     if(results) {//if there's results passed, then this level will be made based on those results
       batchFunctionsArray.push($scope.structureCreateMakeBatchFunctionsChunk(array,results));//needs ALL the results as the parent could be any one of them
-    }else{
+    } else {
       batchFunctionsArray.push($scope.structureCreateMakeBatchFunctionsChunk(array));
     }
   });
@@ -4426,7 +4443,7 @@ $scope.structureCreateMakeBatchFunctionsChunk = function(assets,results) {
 
     if(results) {
       newFunction.args.parent_id = results[assets[n].parent].id;
-    }else{
+    } else {
       newFunction.args.parent_id = $scope.structureCreateTxtRoot;
     }
 
@@ -4553,7 +4570,7 @@ $scope.getCSV = function() {
   if($scope.csvSelectedRadio === 'selected') {
     if($scope.assetsSelected.length) {
       assets = $scope.assetsSelected;
-    }else{
+    } else {
       $scope.message('error-true',"No assets selected","Please select some assets in the table first");
       return null;
     }
@@ -4563,7 +4580,7 @@ $scope.getCSV = function() {
       return null;
     }
     
-  }else{
+  } else {
     assets = $scope.assets;
   }
 
@@ -4578,7 +4595,7 @@ $scope.getCSV = function() {
     _.each($scope.fieldsDisplay,function(field, index) {
       if(field.isMetadata) {
         myCSV += field.meta_id;
-      }else{
+      } else {
         myCSV += field.id;
       }
 
@@ -4609,7 +4626,7 @@ $scope.getCSV = function() {
       _.each($scope.fieldsDisplay,function(field) {
         if(field.isMetadata) {
           myCSV += field.meta_id;
-        }else{
+        } else {
           myCSV += field.id;
         }
         myCSV += $scope.csvDivider; //field name first
@@ -4649,7 +4666,7 @@ $scope.errorCheckResults = function(results,successCallback,warningCallback,erro
   _.each(allResults,function(result,$index) {
     if(result.error) {
       errorResults.push(result);
-    }else{
+    } else {
       successResults.push(result);
     }
   });
