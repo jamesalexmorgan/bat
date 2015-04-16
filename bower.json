@@ -5,6 +5,7 @@
     "jQuery": "*",
     "underscore": "*",
     "angular": "*",
+    "angular-cookies": "*",
     "bootstrap": "*",
     "moment": "*"
   },

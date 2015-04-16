@@ -1,6 +1,5 @@
 publicScope = null; //for testing
 
-
 /* 
 *     
 * ----------------- CONTENTS -----------------
@@ -15,6 +14,7 @@ publicScope = null; //for testing
 *         1.3.3 idsString
 *         1.3.4 statusColor
 *         1.3.5 metadataFieldNameFormat
+*         1.3.6 assetTreeFormat
 *       1.4 Factories
 *       1.5 DECLARING CONTROLLER
 *     
@@ -76,7 +76,8 @@ publicScope = null; //for testing
 *     
 *     10. IA Convert
 *     
-*     11.
+*     11. Asset tree
+*       
 *     
 *     12.
 *     
@@ -113,7 +114,7 @@ publicScope = null; //for testing
 /*********************  1.1 User vars  ***************************/
 /*****************************************************************/
 
-userVarFieldsDisplayDefaults = ['name','created','created_username','updated','updated_username'];
+userVarFieldsDisplayDefaults = ['name'];
 userVarTypeCodesDefaults = ['page_standard','page_asset_listing','file','image','folder','form'];
 
 
@@ -121,7 +122,7 @@ userVarTypeCodesDefaults = ['page_standard','page_asset_listing','file','image',
 /*********************  1.2 DECLARE APP  *************************/
 /*****************************************************************/
 
-var bulkAssetApp = angular.module('bulkAssetApp', []);
+var bulkAssetApp = angular.module('bulkAssetApp', ['ngCookies']);
 
 
 
@@ -243,6 +244,15 @@ bulkAssetApp.filter('metadataFieldIdFormat', function() {
   };
 });
 
+
+/*********************  1.3.6 assetTreeFormat  *************************/
+
+bulkAssetApp.filter('assetTreeFormat', function() {
+  return function(value) {
+    return value.replace('(( ','').replace(' ))','');
+  };
+});
+
 /*****************************************************************/
 /*********************  1.4 Factories  *************************/
 /*****************************************************************/
@@ -275,7 +285,7 @@ bulkAssetApp.factory('jspAPIService', function($q) {
 /*****************  1.5 DECLARING CONTROLLER  ********************/
 /*****************************************************************/
 
-bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIService) {
+bulkAssetApp.controller('ControllerMain', function($scope, $filter, $cookies, jspAPIService) {
 
 
   $scope.initStepAll = function() {
@@ -1249,9 +1259,9 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
                     "note": "Id of the old parent"
                 },
                 {
-                    "required":false,
+                    "required":true,
                     "requiredSet":false,
-                    "set":false,
+                    "set":true,
                     "name": "old_link_type",
                     "type": "string",
                     "val": "",
@@ -1260,9 +1270,9 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
                     "note": "Type of link we are search for between given assets (SQ_LINK_TYPE_1, SQ_LINK_TYPE_2, SQ_LINK_TYPE_3, or SQ_LINK_NOTICE)"
                 },
                 {
-                    "required":false,
+                    "required":true,
                     "requiredSet":false,
-                    "set":false,
+                    "set":true,
                     "name": "old_link_value",
                     "type": "string",
                     "val": "",
@@ -1282,9 +1292,9 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
                     "note": "Id of the new parent"
                 },
                 {
-                    "required":false,
+                    "required":true,
                     "requiredSet":false,
-                    "set":false,
+                    "set":true,
                     "name": "new_link_type",
                     "type": "string",
                     "val": "",
@@ -1293,9 +1303,9 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
                     "note": "Type of link to use (SQ_LINK_TYPE_1, SQ_LINK_TYPE_2, SQ_LINK_TYPE_3, or SQ_LINK_NOTICE)"
                 },
                 {
-                    "required":false,
+                    "required":true,
                     "requiredSet":false,
-                    "set":false,
+                    "set":true,
                     "name": "new_link_value",
                     "type": "string",
                     "val": "",
@@ -2380,7 +2390,6 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
       });
       $scope.assetsSelected = [];
       $scope.searchChanged();//just to update search, in case you delete all the ones you searched for
-      $scope.csvChangeAssetsLoaded = false;//for the bulk csv change, makes sure you need to reload your assets
     };
 
     $scope.refreshSelectedAssets = function() {
@@ -2444,7 +2453,7 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
 
     $scope.cpanel = {
       "showing":true,
-      "tabStatuses":['',true,false,false,false,false],//ignore the '', its there to have the indexes as 1234 instead of 0123
+      "tabStatuses":['',false,true,false,false,false],//ignore the '', its there to have the indexes as 1234 instead of 0123
       "innerTabStatuses":['',
         ['',false,true,false],//tab 1
         ['',true,false],//tab 2
@@ -2467,7 +2476,10 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
 
         this.showing = true;
       },
-      "showHide":function() {this.showing = !this.showing;}
+      "showHide":function() {this.showing = !this.showing;},
+      "assetTree": {
+        "showing":false
+      }
     };
 
   /*****************************************************************/
@@ -3180,7 +3192,6 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
 
   $scope.csvChangeDivider = ',';
   $scope.csvChangeChkBatchFunctionsTest = true;
-  $scope.csvChangeAssetsLoaded = false;
   $scope.csvChangeReload = false;
 
   $scope.csvChangeChkEmptyReplace = true;
@@ -3216,9 +3227,11 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
         });
 
 
-        if($scope.csvChangeReload || !$scope.csvChangeAssetsLoaded) {
-          //TODO check for new assets
+        if($scope.csvChangeReload) {
 
+          $scope.csvChangeReload = false;//set to false to untick after first load
+
+          //TODO check for new assets
           $scope.getData({"assetIds":ids,"getMetadata":true,callBack:function() {
             //TO DO must check for erroneous assets see if assets in 
             //non existent ids eg
@@ -3227,7 +3240,7 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
             //DISALLOW next step so that
 
             //some assets have been loaded, now we can reload if needed
-            $scope.csvChangeAssetsLoaded = true;
+            
 
             $scope.csvChangeBtnCheckForChangesStep2();
           }});
@@ -3530,6 +3543,8 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
   $scope.structureCreateErrorText = '';
   $scope.structureCreateCounts = {};
   $scope.structureCreateDivider = ',';
+  $scope.structureCreateTypeOpen = '(';
+  $scope.structureCreateTypeClose = ')';
 
 
   $scope.structureCreateTxtCsv = 'Home(page_standard)\nAbout Us(page_standard)\nContact(page_standard)\nContact(page_standard),Where We Are(page_standard)\nContact(page_standard),Opening Hours(page_standard),Sydney(page_standard)\nDocuments(folder),Important(folder),Document 1(page_standard)\nDocuments(folder),Not so important(folder),Document 2(page_standard)\nContact(page_standard),Opening Hours(page_standard),Melbourne(page_standard)\nAbout Us(page_standard),Location(page_standard)\nNames(page_standard),George(page_standard)';
@@ -3597,14 +3612,14 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
         $scope.structureCreateArray[$index] = [];
       }
 
-      var y = pageStr.indexOf('(');
-      var z = pageStr.indexOf(')');
+      var y = pageStr.indexOf($scope.structureCreateTypeOpen);
+      var z = pageStr.indexOf($scope.structureCreateTypeClose);
 
       var currentName = '';
       var type = '';
 
       if(y === -1 || z === -1) {//CHECK for brackets
-        $scope.structureCreateErrorText += 'Row ' + String(rowIndex+1) + ', item ' + String($index+1) + ' - "' + pageStr +  '" has a bracket missing (Please correct the format e.g. Home(page_standard)\n';
+        $scope.structureCreateErrorText += 'Row ' + String(rowIndex+1) + ', item ' + String($index+1) + ' - "' + pageStr +  '" has either a '+ y +' or '+z+' character missing (Please correct the format e.g. Home'+ y +'page_standard'+z+'\n';
       } else {
         type = pageStr.substr(y+1,z-y-1);
         currentName = pageStr.substr(0,y);
@@ -3873,10 +3888,107 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
 
 
 
+  /************************************************************************/
+  /************************************************************************/
+  /************************************************************************/
+  /**************************  11. Asset Tree  ****************************/
+  /************************************************************************/
+  /************************************************************************/
+  /************************************************************************/
 
+  $scope.assetTreeRoot = '';
 
+  //$cookies.get('assetTreeRoot');
 
+  $scope.assetTreeObj = {};
 
+  $scope.getAssetTree = function(){
+
+    $scope.assetTreeObj = {
+      atts:{},
+      children:{},
+      hasChildren: true,
+      showChildren: true
+    };
+
+    if($scope.assetTreeRoot){
+
+      //$cookies.put('assetTreeRoot',$scope.assetTreeRoot);
+
+      jspAPIService.executeBatch({
+        "0":{
+          function :"getAssetTree",
+          args: {
+            "asset_id":$scope.assetTreeRoot,
+            "levels":0
+          }
+        }
+      },
+      function(data) {
+        var c = 0;
+        _.each(data[0],function(item,ind){
+          if(c === 0){
+            //first val
+            $scope.updateTree($scope.assetTreeObj, item);
+          } else {
+            //all after
+            var node = $scope.findTreeNode(ind);
+            $scope.updateTree(node, item);
+          }
+          c++;
+        });
+
+      });    
+    } else {
+      alert('Select a root');
+    }
+  }
+
+  $scope.findTreeNode = function(searchingId) {
+    var returnNode = null;
+
+    var iterate = function(treeObj){
+      _.each(treeObj.children,function(item,ind){
+        if(ind == searchingId){
+          returnNode = item;
+        }
+        if(typeof item === 'object'){
+          iterate(treeObj.children[ind]);
+        }
+      });
+    };
+
+    iterate($scope.assetTreeObj);
+
+    return returnNode;
+  }
+
+  $scope.updateTree = function(treeNode, dataObj) {
+    var update = function(node, obj){
+      _.each(obj,function(item,ind){
+        if(typeof item === 'object'){
+          node.hasChildren = true;
+          node.children[ind] = {
+            atts:{
+              assetid: ind
+            },
+            children:{},
+            hasChildren: false,
+            showChildren: false
+          };
+          update(node.children[ind], item);
+        } else {
+          node.atts[ind] = item;
+        }
+      });
+    };
+
+    update(treeNode,dataObj);        
+  }
+
+  $scope.selectTreeNode = function(nodeId) {
+    alert(nodeId);
+  }
 
   /*****************************************************************/
   /*****************************************************************/
@@ -4224,5 +4336,7 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, jspAPIServic
   }
 
   $scope.initStep1(); // GO!  
+
+  window.onbeforeunload = function(){ return 'You will have to reload all the assets if you refresh.'}
 
 }); //end ControllerMain

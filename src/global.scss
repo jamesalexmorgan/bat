@@ -152,25 +152,96 @@ h4 {margin-top: 0px;}
     &.id{font-weight:bold;}        
     &.remove{text-align: center;}
 
-    label{font-weight:normal;}        
+    label{font-weight:normal;}      
   }
 
 }
 
+td.status-color div{
+  height: 15px;
+  width: 15px;
+  margin-top: 2px;
+  border: solid 1px #bbb;
+}
 
 
 /* FOOTER */
 
 #footer-panel{
   position:fixed;
-  bottom:-470px;
+  bottom:-640px;
   left:50%;
   width:800px;
-  height:510px;
+  height:680px;
   margin-left:-320px;
   z-index:10;
 
   &.down-true{bottom:0px;}
+
+  #asset-tree {
+    position: absolute;
+    top: 60px;
+    background: #ccc;
+    left: 0px;
+    width: 250px;
+    padding: 15px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;    
+
+    &.active-true {left: -250px;}
+
+    #asset-tree-button {
+      position: absolute;
+      left: -55px;
+      background: #ccc;
+      padding: 5px 10px;
+      transform: rotate(270deg);
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      top: 40px;
+      cursor: pointer;
+    }
+
+    .asset-tree-box{
+      margin-top: 10px;
+      overflow: scroll;
+      border: 1px solid #888;
+      background: #fff;
+      width: 220px;
+      height: 330px;
+      padding: 5px;
+
+      ul {
+        padding-left: 20px;
+        list-style: none;
+        display: none;
+      }
+
+      li {
+        padding-left: 0px;
+        list-style: none;
+        font-size: 9px;
+        &.has-children {
+          &:before {
+            content: '+';
+            border: solid #666 1px;
+            padding: 0 1px;
+            border-radius: 50%;
+          }
+
+          &.showing-children {
+            &:before {content: '-';}
+            > ul {display: block;}
+          }
+        }
+      }
+
+      > ul {
+        display: block;
+        padding-left: 0;
+      }
+    }
+  }
 
   .footer-tab-button{
     float:left;
@@ -191,7 +262,7 @@ h4 {margin-top: 0px;}
 
   .footer-panel-content{
     width:100%;
-    height:470px;
+    height:640px;
     padding:3% 20px 10px;
     background:#eee;
     position:absolute;
@@ -258,6 +329,13 @@ h4 {margin-top: 0px;}
 }
 /********************** Individual tabs **************************/
 
+/* Tab 1 Create */
+
+#tab-1-content .divider {
+  display:inline;
+  width:20px;
+}
+
 /* Tab 3 Reporting */
 
 #tab-3-content #csv-divider{width:50px;}
@@ -283,7 +361,7 @@ h4 {margin-top: 0px;}
 /********************** LOADING STATE **************************/
 
 
-.loading-true #overlay{display:block;}
+.loading-true #loading-box{bottom:0px;}
 
 /* @font-face {
     font-family: 'latoregular';
@@ -325,104 +403,89 @@ h4 {margin-top: 0px;}
 
 
 
-#overlay {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top:0px;
-    left:0px;
-    display:none;
-    z-index: 10;
-}
-
-#overlay #overlay-box{
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background: #000;
-  opacity: 0.7;
-  z-index: -1;
-}
-
-#overlay #loading-box {
-  width: 500px;
+#loading-box {
+  width: 330px;
+  height: 100px;
   position: fixed;
-  top: 50%;
-  left: 50%;
-  margin-left:-250px;
-  color: #fff;
-  margin-top: -140px;
-}
+  bottom: -120px;
+  right: 10px;
+  z-index: 10;
+  background: #ccc;
+  overflow: auto;
+  padding: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;  
+
+  .spinner {
+    position: absolute;
+    left: 15px;
+    top: 5px;
+    font-size: 28px;
+    height: 20px;
+    line-height: 1;
+    -moz-animation: rotate 1.5s linear 0s infinite;
+    -webkit-animation: rotate 1.5s linear 0 infinite;
+    color: #fff;
+    text-shadow: 0 0 0.25em rgba(255, 255, 255, 0.3);
+    width: 20px;
+  }
+
+  .loading-text {
+    margin: 0px 0px 5px 35px;
+    font-size: 15px;
+    text-align: left;
+  }
+
+  #progress-bar1 {margin-bottom: 5px}
+  #progress-bar2 {}
+
+  .progress-bar {
+    text-align: left;
+    background-color: #1a1a1a;
+    height: 25px;
+    padding: 5px;
+    width: 100%;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;
+    -webkit-box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;
+    box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;           
+  }
+
+  .progress-bar span {
+      /*background-color: #34c2e3;  */
+      display: inline-block;
+      height: 100%;
+      background-color: #777;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      border-radius: 3px;
+      -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+      -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+      -webkit-transition: width .4s ease-in-out;
+      -moz-transition: width .4s ease-in-out;
+      -ms-transition: width .4s ease-in-out;
+      transition: width .4s ease-in-out;    
 
 
-#overlay #loading-box .spinner {
-  position:absolute;
-  left: 50%;
-  margin: 0px 0px 0px -30px;
-  font-size:4em;
-  height: 1em;
-  line-height: 1;
-  -moz-animation: rotate 1.5s linear 0s infinite;
-  -webkit-animation: rotate 1.5s linear 0 infinite;
-  color: #fff;
-  text-shadow: 0 0 .25em rgba(255,255,255, .3);
-}
+      -webkit-background-size: 30px 30px;
+      -moz-background-size: 30px 30px;
+      background-size: 30px 30px;     
+      background-image: -webkit-gradient(linear, left top, right bottom,
+      color-stop(.25, rgba(255, 255, 255, .15)), color-stop(.25, transparent),
+      color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .15)),
+      color-stop(.75, rgba(255, 255, 255, .15)), color-stop(.75, transparent),
+      to(transparent));
+      background-image: -webkit-linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+      background-image: -moz-linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+      background-image: -ms-linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+      background-image: linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);            
 
-#overlay #loading-box .loading-text {
-margin-top: 80px;
-font-size: 28px;
-text-align: center;
-}
-
-#overlay #loading-box #progress-bar1 {top:520px;}
-#overlay #loading-box #progress-bar2 {top:570px;}
-
-#overlay #loading-box .progress-bar {
-  text-align: left;
-  background-color: #1a1a1a;
-  height: 25px;
-  padding: 5px;
-  width: 100%;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  -moz-box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;
-  -webkit-box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;
-  box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;           
-}
-
-#overlay #loading-box .progress-bar span {
-    /*background-color: #34c2e3;  */
-    display: inline-block;
-    height: 100%;
-    background-color: #777;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
-    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
-    box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
-    -webkit-transition: width .4s ease-in-out;
-    -moz-transition: width .4s ease-in-out;
-    -ms-transition: width .4s ease-in-out;
-    transition: width .4s ease-in-out;    
-
-
-    -webkit-background-size: 30px 30px;
-    -moz-background-size: 30px 30px;
-    background-size: 30px 30px;     
-    background-image: -webkit-gradient(linear, left top, right bottom,
-    color-stop(.25, rgba(255, 255, 255, .15)), color-stop(.25, transparent),
-    color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .15)),
-    color-stop(.75, rgba(255, 255, 255, .15)), color-stop(.75, transparent),
-    to(transparent));
-    background-image: -webkit-linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-    background-image: -moz-linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-    background-image: -ms-linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-    background-image: linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);            
-
-    -webkit-animation: animate-stripes 3s linear infinite;
-    -moz-animation: animate-stripes 3s linear infinite;           
+      -webkit-animation: animate-stripes 3s linear infinite;
+      -moz-animation: animate-stripes 3s linear infinite;           
+  }
 }
 
 @-webkit-keyframes animate-stripes { 
@@ -432,6 +495,3 @@ text-align: center;
 @-moz-keyframes animate-stripes {
   0% {background-position: 60px 0;} 100% {background-position: 0 0;}
 }
-
-
-

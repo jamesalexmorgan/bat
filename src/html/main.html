@@ -110,8 +110,10 @@
                     <td>
                       <label for="asset-{{asset.id}}"><img width="16" height="16" class="sq-icon" title="{{asset.type_code}}" alt="" src="/__data/asset_types/{{asset.type_code}}/icon.png"></label>
                     </td>
-                    <td>
-                      <label for="asset-{{asset.id}}"><img width="10" height="10" alt="{{asset.status}}" title="{{asset.status}}" align="absmiddle" style="background-color: #{{asset.status | statusColor:matrixAssetStatuses}}"></label>
+                    <td class="status-color">
+                      <label for="asset-{{asset.id}}">
+                        <div alt="{{asset.status}}" title="{{asset.status}}" align="absmiddle" style="background-color: #{{asset.status | statusColor:matrixAssetStatuses}}"></div>
+                      </label>
                     </td>
                     <td class="id"><a title="Preview asset {{asset.id}} in new tab" href="{{asset.web_path}}" target="_blank">{{asset.id}}</a></td>
                     
@@ -135,6 +137,68 @@
  -->
 
     <div id="footer-panel" class="down-{{cpanel.showing}} selected-{{cpanel.tabSelected}}">
+
+      <div id="asset-tree" class="active-{{cpanel.assetTree.showing}}">
+        <div id="asset-tree-button" ng-click="cpanel.assetTree.showing = !cpanel.assetTree.showing">Asset tree</div>
+        <div class="form-inline">
+          <label for="assetTreeRoot">Parent Asset Id
+            <input type="text" id="assetTreeRoot" class="form-control" ng-model="assetTreeRoot">
+          </label>
+          <div class="btn-group">
+            <button type="submit" class="btn btn-default btn-xs" ng-click="getAssetTree()">Add</button>
+            <button type="submit" class="btn btn-default btn-xs" ng-click="assetTree = []">Reset</button>
+          </div>
+        </div>
+
+        <div class="asset-tree-box">
+          <ul>
+            <li ng-class="{'showing-children':child.showChildren, 'has-children':child.hasChildren}" ng-repeat="child in assetTreeObj.children | orderBy:'atts.sort_order':true">
+              <a href="#" ng-click="child.showChildren = !child.showChildren">{{child.atts.name | assetTreeFormat}} ({{child.atts.assetid}})</a>
+              <ul>
+                <li ng-class="{'showing-children':child2.showChildren, 'has-children':child2.hasChildren}" ng-repeat="child2 in child.children | orderBy:'atts.sort_order':true">
+                  <a href="#" ng-click="child2.showChildren = !child2.showChildren">{{child2.atts.name | assetTreeFormat}} ({{child2.atts.assetid}})</a>
+                  <ul>
+                    <li ng-class="{'showing-children':child3.showChildren, 'has-children':child3.hasChildren}" ng-repeat="child3 in child2.children | orderBy:'atts.sort_order':true">
+                      <a href="#" ng-click="child3.showChildren = !child3.showChildren">{{child3.atts.name | assetTreeFormat}} ({{child3.atts.assetid}})</a>
+                      <ul>
+                        <li ng-class="{'showing-children':child4.showChildren, 'has-children':child4.hasChildren}" ng-repeat="child4 in child3.children | orderBy:'atts.sort_order':true">
+                          <a href="#" ng-click="child4.showChildren = !child4.showChildren">{{child4.atts.name | assetTreeFormat}} ({{child4.atts.assetid}})</a>
+                          <ul>
+                            <li ng-class="{'showing-children':child5.showChildren, 'has-children':child5.hasChildren}" ng-repeat="child5 in child4.children | orderBy:'atts.sort_order':true">
+                              <a href="#" ng-click="child5.showChildren = !child5.showChildren">{{child5.atts.name | assetTreeFormat}} ({{child5.atts.assetid}})</a>
+                              <ul>
+                                <li ng-class="{'showing-children':child6.showChildren, 'has-children':child6.hasChildren}" ng-repeat="child6 in child5.children | orderBy:'atts.sort_order':true">
+                                  <a href="#" ng-click="child6.showChildren = !child6.showChildren">{{child6.atts.name | assetTreeFormat}} ({{child6.atts.assetid}})</a>
+                                  <ul>
+                                    <li ng-class="{'showing-children':child7.showChildren, 'has-children':child7.hasChildren}" ng-repeat="child7 in child6.children | orderBy:'atts.sort_order':true">
+                                      <a href="#" ng-click="child7.showChildren = !child7.showChildren">{{child7.atts.name | assetTreeFormat}} ({{child7.atts.assetid}})</a>
+                                      <ul>
+                                        <li ng-class="{'showing-children':child8.showChildren, 'has-children':child8.hasChildren}" ng-repeat="child8 in child7.children | orderBy:'atts.sort_order':true">
+                                          <a href="#" ng-click="child8.showChildren = !child8.showChildren">{{child8.atts.name | assetTreeFormat}} ({{child8.atts.assetid}})</a>
+                                          <ul>
+                                            <li ng-repeat="child9 in child8.children | orderBy:'atts.sort_order':true">
+                                              <a href="#">{{child9.atts.name | assetTreeFormat}} ({{child9.atts.assetid}})</a>
+                                            </li>
+                                          </ul>
+                                        </li>
+                                      </ul>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+
       <div id="slide-button" class="footer-tab-button" ng-click="cpanel.showHide()">^</div>
       <div class="footer-tab-button active-{{cpanel.tabStatuses[1]}}" ng-click="cpanel.changeTab(1)">Create</div>
       <div class="footer-tab-button active-{{cpanel.tabStatuses[2]}}" ng-click="cpanel.changeTab(2)">Load Assets</div>
@@ -243,7 +307,10 @@
 
                   <div class="form-group">
                     <div class="right" style="text-align:right;">
-                    Divider <input style="display:inline;width:20px;" type="text" ng-model="structureCreateDivider">
+                      Dividers 
+                      <input class="divider" type="text" ng-model="structureCreateDivider" /> 
+                      <input class="divider" type="text" ng-model="structureCreateTypeOpen" /> 
+                      <input class="divider" type="text" ng-model="structureCreateTypeClose" /> 
                     </div>                    
                     <label for="structureCreateTxtCsv">Structure CSV</label>
                     <textarea wrap="off" id="structureCreateTxtCsv" class="form-control" rows="7" ng-model="structureCreateTxtCsv" ng-change="structureCreateReady = false"></textarea>
@@ -486,12 +553,15 @@
                     </textarea>
                   </div> 
                   <button type="submit" ng-click="csvChangeBtnCheckForChanges()" class="btn btn-default">Check for changes</button>&nbsp;
-                  <span class="showing-{{csvChangeAssetsLoaded}}" title="Reload data from Matrix for all the CSVs asset ids"><input type="checkbox" ng-model="csvChangeReload"> Reload</span>
+                  <span title="Reload data from Matrix for all the CSVs asset ids"><input type="checkbox" ng-model="csvChangeReload"> Reload</span>
+                  
                   <br><br>
                   <div class="showing-{{csvChangeChanges.length > 0}}">
 
                     <button type="submit" ng-click="csvChangeBtnExecuteChanges()" class="btn btn-primary btn-lg" ng-disabled="!csvChangeChangesChecked">Make changes</button> 
-                    <input type="checkbox" ng-model="csvChangeChkBatchFunctionsTest"> <span class="bold">Test</span> (See prepared batch functions first)
+
+                    <input type="checkbox" ng-model="csvChangeChkBatchFunctionsTest"> <span class="bold">Test</span> (See prepared batch functions first) 
+                    <input type="checkbox" ng-model="csvChangeChkEmptyReplace" title="Replace values with blank string"> Set blanks
 
                   </div>
                 </form>
@@ -622,23 +692,17 @@
 ********************************************************************
  -->
 
-    <div id="overlay">
 
-      <div id="overlay-box"></div>
-
-      <div id="loading-box">
-        <div class="spinner loading-icon" aria-hidden="true"></div>
-        <div class="loading-text">{{loadingText}}</div>
-        <p>&nbsp;</p>
-        <p class="loader-text showing-block-{{loaderOne.showing}}">{{loaderOne.text}}</p>
-        <div id="progress-bar1" class="progress-bar showing-block-{{loaderOne.showing}}">
-            <span style="width: {{(loaderOne.current/loaderOne.total)*100}}%;"></span>
-        </div>
-        <p>&nbsp;</p>
-        <p class="loader-text showing-block-{{loaderTwo.showing}}">{{loaderTwo.text}}</p>
-        <div id="progress-bar2" class="progress-bar showing-block-{{loaderTwo.showing}}">
-            <span style="width: {{(loaderTwo.current/loaderTwo.total)*100}}%;"></span>
-        </div>
+    <div id="loading-box">
+      <div class="spinner loading-icon" aria-hidden="true"></div>
+      <div class="loading-text">{{loadingText}} {{loaderTwo.text}}</div>
+      <!-- <p class="loader-text showing-block-{{loaderOne.showing}}">{{loaderOne.text}}</p> -->
+      <div id="progress-bar1" class="progress-bar showing-block-{{loaderOne.showing}}">
+          <span style="width: {{(loaderOne.current/loaderOne.total)*100}}%;"></span>
       </div>
-
+      <!-- <p class="loader-text showing-block-{{loaderTwo.showing}}">{{loaderTwo.text}}</p> -->
+      <div id="progress-bar2" class="progress-bar showing-block-{{loaderTwo.showing}}">
+          <span style="width: {{(loaderTwo.current/loaderTwo.total)*100}}%;"></span>
+      </div>
     </div>
+

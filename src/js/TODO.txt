@@ -1,0 +1,35 @@
+TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+
+-----------------------------------
+LOADING
+Inform about possibly not having access to this root node
+
+-----------------------------------
+BACKGROUND LOADING
+So you can still do stuff while tasks are running
+
+-----------------------------------
+COOKIES
+
+remember ids in important fields
+
+-----------------------------------
+REPORTING
+
+Put names at top of meta fields
+
+-----------------------------------
+ASSET TREE
+
+waiting for getAssetTree functionality to return LINK TYPE 2 assets as well
+https://squizmap.squiz.net/matrix/6943
+
+-----------------------------------
+DEPLOYMENT
+
+optionally deploy instantly when viewing Edit+
+var x = new Squiz_Matrix_API({key:EasyEditConfig.JSAPI.key});

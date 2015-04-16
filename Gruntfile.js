@@ -37,6 +37,7 @@ module.exports = function(grunt){
           'src/html/tag-script-open.html',
           'bower_components/underscore/underscore-min.js',
           'bower_components/angular/angular.min.js',
+          'bower_components/angular-cookies/angular-cookies.min.js',
           'bower_components/moment/min/moment.min.js',
           'src/js/global.js',
           'src/html/tag-script-close.html'
