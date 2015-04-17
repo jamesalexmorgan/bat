@@ -394,11 +394,33 @@
           </form>
         </div>
         <div class="clearfix">&nbsp;</div>
-        <div class="col-sm-10">
+        <div class="col-sm-4">
           <form class="form-inline" role="form">
             <div class="form-group">
               <button class="btn btn-primary btn-lg" ng-click="getCSV()">Get CSV</button>
-              <input id="csv-divider" name="csv-divider" title="The divider that will separate the values in the CSV (',' or ';' or 'tab' etc.)" type="text" class="form-control" ng-model="csvDivider" ng-change="getCSV()"/> <label for="csv-divider" title="The divider that will separate the values in the CSV (',' or ';' or 'tab' etc.)">divider</label>&nbsp;
+
+              <br><br>
+              <div class="radio">
+                <label>
+                  <input type="radio" ng-model="csvSelectedRadio" value="selected"> <span class="bold">Selected</span> assets (<span class="bold">{{assetsSelected.length}}</span>)
+                </label>
+              </div><br>
+              <div class="radio">
+                <label>
+                  <input type="radio" ng-model="csvSelectedRadio" value="all"> <span class="bold">All</span> assets (<span class="bold">{{assets.length}}</span>)
+                </label>
+              </div>  
+            </div>  
+          </form>
+        </div>
+        <div class="col-sm-8">
+
+          <form class="form-inline" role="form">
+            <div class="form-group">
+
+              <label for="csv-divider" title="The divider that will separate the values in the CSV (',' or ';' or 'tab' etc.)">divider</label>&nbsp;<input id="csv-divider" name="csv-divider" title="The divider that will separate the values in the CSV (',' or ';' or 'tab' etc.)" type="text" class="form-control" ng-model="csvDivider" ng-change="getCSV()"/> 
+              <br><br>
+              <strong>Layout</strong> 
               <div class="radio">
                 <label>
                   <input type="radio" title="Vertically oriented CSV (normal)" ng-model="csvType" value="vertical" ng-change="getCSV()"> Vertical
@@ -408,26 +430,27 @@
                 <label>
                   <input type="radio" title="Horizontally oriented CSV" ng-model="csvType" value="horizontal" ng-change="getCSV()"> Horizontal
                 </label>
-              </div>      
-
+              </div>
               <br><br>
+              <strong>Headings</strong> 
               <div class="radio">
                 <label>
-                  <input type="radio" ng-model="csvSelectedRadio" value="selected"> <span class="bold">Selected</span> assets (<span class="bold">{{assetsSelected.length}}</span>)
+                  <input type="radio" title="" ng-model="csvHeadingsType" value="ids" ng-change="getCSV()"> Ids
                 </label>
               </div>
               <div class="radio">
                 <label>
-                  <input type="radio" ng-model="csvSelectedRadio" value="all"> <span class="bold">All</span> assets (<span class="bold">{{assets.length}}</span>)
+                  <input type="radio" title="" ng-model="csvHeadingsType" value="metaName" ng-change="getCSV()"> Meta Name
                 </label>
-              </div>  
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" title="" ng-model="csvHeadingsType" value="metaNameFriendly" ng-change="getCSV()"> Meta Name Friendly
+                </label>
+              </div>
             </div>  
           </form>
         </div>
-        <div class="col-sm-2">
-          <button class="btn btn-default" ng-click="messageClear()">Clear box</button>
-        </div>
-
       </div>    
 
       <!-- *************************** TAB 4 -->

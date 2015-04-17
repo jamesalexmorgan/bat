@@ -253,6 +253,25 @@ bulkAssetApp.filter('assetTreeFormat', function() {
   };
 });
 
+/*********************  1.3.7 CSV headings  *************************/
+
+bulkAssetApp.filter('csvHeading', function() {
+  return function(field,displayType) {
+    if(field.isMetadata) {
+
+      if(displayType === 'ids'){
+        return field.meta_id;
+      } else if (displayType === 'metaName') {
+        return field.id;
+      } else if (displayType === 'metaNameFriendly') {
+        return field.meta_friendly_name !== '' ?  field.meta_friendly_name : field.id;
+      }
+    } else {
+      return displayType === 'ids' ? field.id : field.name;
+    }
+  };
+});
+
 /*****************************************************************/
 /*********************  1.4 Factories  *************************/
 /*****************************************************************/
@@ -4017,13 +4036,6 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, $cookies, js
       $scope.cpanel.changeTab(3); // change to tab 3 for the message box
     };
 
-    $scope.messageClear = function() {
-      $scope.messageType = ""; //success/warning/error
-      $scope.messageTitle = "Messaging box";
-      $scope.messageContent = "";
-    };
-
-
   /*****************************************************************/
   /***************************  15.2 Get CSV  ****************************/
   /*****************************************************************/
@@ -4031,6 +4043,7 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, $cookies, js
   $scope.csvDivider = ',';
   $scope.csvSelectedRadio = 'all';
   $scope.csvType = 'vertical';
+  $scope.csvHeadingsType = 'ids';
 
   $scope.getCSV = function() {
     var myCSV = '';
@@ -4064,11 +4077,8 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, $cookies, js
       // start building csv
       myCSV += 'id' + $scope.csvDivider;
       _.each($scope.fieldsDisplay,function(field, index) {
-        if(field.isMetadata) {
-          myCSV += field.meta_id;
-        } else {
-          myCSV += field.id;
-        }
+        
+        myCSV += $filter('csvHeading')(field,$scope.csvHeadingsType);
 
         if(index < ($scope.fieldsDisplay.length-1)) {myCSV += $scope.csvDivider;}
       });
@@ -4095,11 +4105,9 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, $cookies, js
         myCSV += '\n';
 
         _.each($scope.fieldsDisplay,function(field) {
-          if(field.isMetadata) {
-            myCSV += field.meta_id;
-          } else {
-            myCSV += field.id;
-          }
+
+          myCSV += $filter('csvHeading')(field,$scope.csvHeadingsType);
+
           myCSV += $scope.csvDivider; //field name first
           _.each(orderedAssets,function(asset, index) {
               //apply date filter to values
