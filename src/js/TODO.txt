@@ -5,22 +5,19 @@ TODO TODO TODO TODO TODO TODO TODO TODO TODO
 TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 
 -----------------------------------
-LOADING
-Inform about possibly not having access to this root node
+SEARCH REGEX
+checkbox for regex search
+then can search multiple possibilities!!!
 
 -----------------------------------
-BACKGROUND LOADING
-So you can still do stuff while tasks are running
+METADATA BUG
+
+If assets have no metadata schemae then hangs
 
 -----------------------------------
 COOKIES
 
 remember ids in important fields
-
------------------------------------
-REPORTING
-
-Put names at top of meta fields
 
 -----------------------------------
 ASSET TREE
@@ -33,3 +30,31 @@ DEPLOYMENT
 
 optionally deploy instantly when viewing Edit+
 var x = new Squiz_Matrix_API({key:EasyEditConfig.JSAPI.key});
+
+-----------------------------------
+
+Multiple select
+
+check for values not in list
+
+-----------------------------------
+
+EXPORT SITE STRUCTURE AS CSV
+
+a csv ready for import in the structure create
+
+(depends on getAsstTree function)
+-----------------------------------
+
+DEEP CLONE
+
+- node to clone
+- node to clone into
+- limit types? would be quite easy
+
+
+(depends on getAsstTree function)
+
+
+
+

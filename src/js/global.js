@@ -2686,6 +2686,11 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, $cookies, js
 
           $scope.loadingStart('Getting children...');
           $scope.executeBatchFunctions(batchFunctionsChildren,function(results) {
+            if(results.length && results[0] && results[0].error && results[0].error.match('permissions')){
+                $scope.message('error-true','API Permissions','It looks like the JS API your BAT is using currently doesn\'t have access to "'+$scope.loadAssetIds+'". Go into the details of the BAT JS API asset and add make sure they are included in the root nodes.');
+                $scope.loading = false;
+                return null;
+            }
             //put children assets in resultAssets array
             _.each(results,function(result) {
                 if(result.length) {
@@ -2738,6 +2743,7 @@ bulkAssetApp.controller('ControllerMain', function($scope, $filter, $cookies, js
           //get general
           $scope.loadingStart('Getting general info...');
           $scope.executeBatchFunctions(batchFunctionsGeneral,function(results) {
+            //TODO check for JS API permissions fail
             $scope.loadAssetStepOneResultAssets = results;
             $scope.loadAssetDataSet($scope.loadAssetStepOneResultAssets,'');
             if(params) {
